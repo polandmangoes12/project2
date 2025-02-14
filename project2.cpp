@@ -11,6 +11,7 @@
 /************************************************************/
 #include <iostream>
 #include "AvlTree.h"
+#include <vector>
 using namespace std;
 
 
@@ -19,14 +20,44 @@ int main( )
   //a simple test
   AvlTree<int> t;
   int i;
-  
+  std::vector<int> nums;
+  //do{
+  std::cout<<"\nEnter a sequence of numbers to build the AVL tree (enter -1 to end):"<<std::endl;
+  //}while(cin!=-1);
+  while(std::cin>>i)
+  {
+    if (i==-1)
+    {
+      break;
+    }
+    nums.push_back(i);
+  }
   //insert ten integers
-  for( i = 1; i <= 10; i ++)
-    t.insert( i );
+  //int count=0;
+  for(int node: nums)
+  {
+    t.insert(node);
+    //count++;
+  }
+
+  int counter=t.count(t.root);
+
+  std::cout<<"The AVL tree has "<<counter<<" nodes in total.";
+
+  std::cout<<"\nPre-order tree traversal:        ";
+  t.preOrder(t.root);
+  std::cout<<"\nPost-order tree traversal:       ";
+  t.postOrder(t.root);
+
+  int k;
+  std::cout<<"\nSearch for the kth smallest value. Enter k:";
+  std::cin>>k;
+  int kth = t.findkth(t.root, k);
+  std::cout<<"\nThe kth smallest value in the AVL tree is "<<kth<<".\n";
   
   //print tree
-  t.printTree( );
+  //t.printTree( );
 
-  cout << "Test finished" << endl;
+  //cout << "Test finished" << endl;
   return 0;
 }

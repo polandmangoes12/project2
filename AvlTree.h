@@ -1,5 +1,6 @@
 #ifndef AVL_TREE_H
 #define AVL_TREE_H
+#include <vector>
 
 #include "dsexceptions.h"
 #include <iostream>    
@@ -53,6 +54,8 @@ public:
   /* destructor */
   ~AvlTree( );
   
+  AvlNode<Comparable> *root; //the pointer to root
+
   /*
    * Find the smallest item in the tree.
    * Throw UnderflowException if empty.
@@ -93,11 +96,60 @@ public:
    * Insert x into the tree; duplicates are ignored.
    */
   void insert( const Comparable & x );
+
+
+   /*
+    * Double rotate binary tree node: first left child.
+    * with its right child; then node k3 with new left child.
+    * For AVL trees, this is a double rotation for case 2.
+    * Update heights, then set new root.
+    */
+   void doubleWithLeftChild( AvlNode<Comparable> * & k3 );
+
+      /*
+    * Double rotate binary tree node: first right child.
+    * with its left child; then node k3 with new right child.
+    * For AVL trees, this is a double rotation for case 2.
+    * Update heights, then set new root.
+    */
+    void doubleWithRightChild( AvlNode<Comparable> * & k3 );
+
+    //inOrder traversal
+    void inOrder(AvlNode<Comparable> *&root, std::vector<Comparable>& traversal);
+
+  /*
+   * Method to find the kth smallest element in a tree with count (AKA number of nodes) known
+   * inputs: root node, int count, int k
+   * returns kth smallest element
+   */
+   //int kthSmallest(AvlNode<Comparable> *&root, int counter, int k);
+   int kthSmallest(AvlNode<Comparable> *&root, int counter, int k);
+
+   /*
+    * Method to find the kth smallest element in a tree with root node root
+    * inputs: root node, integer k
+    * returns kth smallest element
+    */
+   //int findkth(AvlNode<Comparable> * & root, int k);
+   int findkth(AvlNode<Comparable> *&root, int k);
+   /*
+    * Method to print the preorder traversal sequence
+    */
+   void preOrder(AvlNode<Comparable> *&root) const;
+ 
+   /*
+    * Method to print the postorder traversal sequence
+    */
+   void postOrder(AvlNode<Comparable> *&root) const;
+ 
+   /*
+    * Method to return the number of nodes in a tree with root root
+    * inputs: root node
+    * returns integer (AKA number of nodes in the tree)
+    */
+   int count(AvlNode<Comparable> *&root);
   
 private:
-
-  AvlNode<Comparable> *root; //the pointer to root
-  
   
   /*
    * Internal method to insert into a subtree.
@@ -165,34 +217,16 @@ private:
    */
   void rotateWithLeftChild( AvlNode<Comparable> * & k2 );
 
-
-  /*
+      /*
    * Rotate binary tree node with right child.
    * For AVL trees, this is a single rotation for case 4.
    * Update heights, then set new root.
    */
-  void rotateWithRightChild( AvlNode<Comparable> * & k1 );
+   void rotateWithRightChild( AvlNode<Comparable> * & k1 );
 
-
-  /*
-   * Double rotate binary tree node: first left child.
-   * with its right child; then node k3 with new left child.
-   * For AVL trees, this is a double rotation for case 2.
-   * Update heights, then set new root.
-   */
-  void doubleWithLeftChild( AvlNode<Comparable> * & k3 );
-
-
-  /*
-   * Double rotate binary tree node: first right child.
-   * with its left child; then node k1 with new right child.
-   * For AVL trees, this is a double rotation for case 3.
-   * Update heights, then set new root.
-   */
-  void doubleWithRightChild( AvlNode<Comparable> * & k1 );
-
-};
-
-#include "AvlTree.cpp"
-
-#endif
+ };
+ 
+ #include "AvlTree.cpp"
+ 
+ #endif
+ 
